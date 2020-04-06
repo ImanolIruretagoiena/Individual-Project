@@ -14,8 +14,8 @@ import java.util.Scanner;
  * Tasks can be added, sorted, printed to console,
  * updated, marked as completed, removed and saved
  * to / loaded from external file.
- * @author Imanol Iruretagoiena
- * @version 2020.03.23
+ * @author ImanolIruretagoiena
+ * @version 2020.04.05
  */
 public class TaskOrganizer {
 	
@@ -41,7 +41,6 @@ public class TaskOrganizer {
 	 * Displays header / title of the application.
 	 */
 	public void displayApplicationHeader() {
-		
 		System.out.println("ToDo List Application" + "\n"  + "\n" + "---------------------" + "\n"
 		+ "\n" + "Welcome to ToDoLy" + "\n");
 	}
@@ -50,7 +49,6 @@ public class TaskOrganizer {
 	 * Displays option menu for the user to choose from.
 	 */
 	public void displayOptionMenu() {
-		
 		System.out.println("You have " + toDoTotal + " task(s) todo and " + doneTotal + " task(s) " 
 		+ "are done!" + "\n" + "Pick an option:" + "\n" + "(1) Show Task List (by date or project)"
 		+ "\n" + "(2) Add New Task" + "\n" + "(3) Edit Task (update, mark as done, remove)" + "\n"
@@ -62,16 +60,15 @@ public class TaskOrganizer {
 	 * allow repetition of task titles.
 	 */
 	public void addTask() {
-		
 		System.out.println("Enter task details: " + "\n" + "\n" + "Title: ");
 		String title = keyboard.nextLine();
 		boolean taskRepeated = false;
-		for(Task task : list) {
-			
+		
+		for(Task task : list) {	
 			if(title.equals(task.getTitle())) {
-				
 				taskRepeated = true;
-				System.out.println("Task already exists!" + "\n");
+				System.out.println("Task title already exists! Use a different title or select the "
+				+ "update task option to edit the details of the task with the entered title." + "\n");
 			}
 		}
 		
@@ -90,7 +87,6 @@ public class TaskOrganizer {
 	 * Sorts ArrayList by project.
 	 */
 	public void sortListByProject() {
-		
 		System.out.println("Task list by Project:" + "\n");
 		Collections.sort(list, Task.TaskProjectComparator);
 	}
@@ -99,7 +95,6 @@ public class TaskOrganizer {
 	 * Sorts ArrayList by due date.
 	 */
 	public void sortListByDueDate() {
-		
 		System.out.println("Task list by Due Date:" + "\n");
 		Collections.sort(list, Task.TaskDueDateComparator);
 	}
@@ -111,10 +106,8 @@ public class TaskOrganizer {
 	public void printList() {
 		
 		for(Task task :list) {
-			
 			System.out.println(task.getDetails());
 		}
-		
 		System.out.println();
 	}
 	
@@ -130,20 +123,7 @@ public class TaskOrganizer {
 		
 		doneTotal = list.stream()
 					.filter(task -> true == task.isCompleted())
-					.count();
-		
-		//toDoTotal = 0;
-		//doneTotal = 0;
-		//for(Task task : list) {
-			
-		//	if(task.isCompleted() == false) {
-				
-		//		toDoTotal++;
-		//	} else {
-				
-		//		doneTotal++;
-		//	}
-		//}
+					.count();		
 	}
 	
 	/**
@@ -158,6 +138,7 @@ public class TaskOrganizer {
 		System.out.println("Enter title of task to be updated: ");
 		String taskTitle = keyboard.nextLine();
 		boolean taskFound = false;
+		
 		for(Task task : list) {
 			
 			if(taskTitle.equals(task.getTitle())) {
@@ -166,12 +147,12 @@ public class TaskOrganizer {
 				System.out.println("Enter new task details: " + "\n" + "\n" + "Title: ");
 				String newTitle = keyboard.nextLine();
 				boolean taskRepeated = false;
+				
 				for(Task tasks : list) {
 					
 					if(newTitle.equals(tasks.getTitle()) && !newTitle.equals(task.getTitle())) {
-						
 						taskRepeated = true;
-						System.out.println("Task already exists!" + "\n");
+						System.out.println("Another task with this title already exists!" + "\n");
 					}
 				}
 				
@@ -188,9 +169,7 @@ public class TaskOrganizer {
 				}
 			}	
 		}
-		
 		if(taskFound == false) {
-			
 			System.out.println("Task not found!" + "\n");
 		}
 	}	
@@ -204,18 +183,16 @@ public class TaskOrganizer {
 		System.out.println("Enter title of task to be marked as done: ");
 		String taskTitle = keyboard.nextLine();
 		boolean taskFound = false;
+		
 		for(Task task : list) {
 			
 			if(taskTitle.equals(task.getTitle())) {
-				
 				taskFound = true;
 				task.setCompleted();
 				System.out.println("Task marked as done!" + "\n");
 			}	
 		}
-		
 		if(taskFound == false) {
-			
 			System.out.println("Task not found!" + "\n");
 		}
 	}
@@ -231,19 +208,17 @@ public class TaskOrganizer {
 		String taskTitle = keyboard.nextLine();
 		boolean taskFound = false;
 		Iterator<Task> itr = list.iterator();
+		
 		while(itr.hasNext()) {
 			
 			Task temp = itr.next();
 			if(taskTitle.equals(temp.getTitle())) {
-				
 				taskFound = true;
 				itr.remove();
 				System.out.println("Task removed!" + "\n");
 			}
 		}
-		
 		if(taskFound == false) {
-			
 			System.out.println("Task not found!" + "\n");
 		}
 	}
@@ -253,22 +228,15 @@ public class TaskOrganizer {
 	 * doen't exist, it is created. If it exists, a message showing
 	 * this is printed.
 	 */
-	public void createFile() {
+	public void createFile(File listFile) {
 		
 		try {
-			
-			File listFile = new File("/Users/imanoliruretagoiena/Desktop/list.txt");
 			if(listFile.createNewFile()) {
-				
 				System.out.println("File created: " + listFile.getAbsolutePath() + "\n");
-			
 			} else {
-				
-				System.out.println("File already exists." + "\n");
+				System.out.println("File already exists: " + listFile.getAbsolutePath() + "\n");
 			}
-		
 		} catch(IOException e){
-			
 			System.out.println("An error ocurred." + "\n");
 			e.printStackTrace();
 		}
@@ -279,21 +247,16 @@ public class TaskOrganizer {
 	 * ArrayList into the specified file and displays
 	 * goodbye message.
 	 */
-	public void saveToFile() {
+	public void saveToFile(FileWriter listWriter) {
 		
-		try {
-			
-			FileWriter listWriter = new FileWriter("/Users/imanoliruretagoiena/Desktop/list.txt");
+		try {			
 			for(Task task : list) {
-				
 				listWriter.write(task.getDetails() + "\n");
 			}
-			
 			System.out.println("Successfully saved to file!" + "\n" + "Goodbye!");
 			listWriter.close();
 		
 		} catch(IOException e) {
-			
 			System.out.println("An error ocurred." + "\n");
 			e.printStackTrace();
 		}
@@ -303,15 +266,13 @@ public class TaskOrganizer {
 	 * Reads text from specified file and imports
 	 * the data into the ArrayList.
 	 */
-	public void readFile() {
+	public void readFile(File listFile) {
 		
 		try {
-			
-			File listFile = new File("/Users/imanoliruretagoiena/Desktop/list.txt");
 			Scanner fileReader = new Scanner(listFile);
 			fileReader.useDelimiter("\\s*:\\s*|\\s*;\\s*|\n");
+			
 			while(fileReader.hasNext()) {
-				
 				fileReader.next();
 				String title = fileReader.next();
 				fileReader.next();
@@ -321,47 +282,30 @@ public class TaskOrganizer {
 				fileReader.next();
 				boolean isComplete = fileReader.nextBoolean();
 				list.add(new Task(title, dueDate, project, isComplete));
-				
 			}
-			
 			fileReader.close();
 			System.out.println("File data imported successfully!" + "\n");
 		
 		} catch(FileNotFoundException e) {
-			
 			System.out.println("File not found!" + "\n");
 			e.printStackTrace();
 		}
 	}
 	
 	/**
-	 * Sorts the task list by project and prints it
-	 * to the console.
+	 * Returns the ArrayList of the TaskOrganizer.
+	 * @return ArrayList of TaskOrganizer.
 	 */
-	/*public void printByProject() {
-		
-		ArrayList<Task> sortedByProject = (ArrayList<Task>) list
-						.stream().sorted(Comparator.comparing(Task::getProject))
-						.collect(Collectors.toList());
-		
-		System.out.println("Task list by Project:" + "\n");
-		sortedByProject.forEach(task->System.out.println(task.getDetails()));
-		System.out.println();
-	}*/
+	public ArrayList<Task> getList(){
+		return list;
+	}
 	
 	/**
-	 * Sorts the task list by due date and prints it
-	 * to the console.
+	 * Returns the number of incomplete tasks.
+	 * @return Number of incomplete tasks.
 	 */
-	/*public void printByDueDate() {
-		
-		ArrayList<Task> sortedByDueDate = (ArrayList<Task>) list
-						.stream().sorted(Comparator.comparing(Task::getDueDate))
-						.collect(Collectors.toList());
-		
-		System.out.println("Task list by Due Date:" + "\n");
-		sortedByDueDate.forEach(task->System.out.println(task.getDetails()));
-		System.out.println();
-	}*/
+	public long getToDoTotal() {
+		return toDoTotal;
+	}
 }
 

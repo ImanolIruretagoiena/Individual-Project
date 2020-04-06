@@ -7,8 +7,8 @@ import java.util.Comparator;
  * such as its title, due date, project
  * and whether it is completed or not.
  *  
- * @author Imanol Iruretagoiena
- * @version 2020.03.23
+ * @author ImanolIruretagoiena
+ * @version 2020.04.05
  */
 public class Task {
 	
@@ -123,7 +123,8 @@ public class Task {
 	 * @return Task's details.
 	 */
 	public String getDetails() {
-		return "Task title: " + title + "; Due Date: " + dueDate + "; Project: " + project + "; Completed: " + isCompleted;
+		return "Task title: " + title + "; Due Date: " + dueDate + "; Project: " 
+	            + project + "; Completed: " + isCompleted;
 	}
 	
 	/**
@@ -132,7 +133,6 @@ public class Task {
 	public static Comparator<Task> TaskProjectComparator = new Comparator<Task>() {
 		
 		public int compare(Task task1, Task task2) {
-			
 			String TaskProject1 = task1.getProject().toUpperCase();
 			String TaskProject2 = task2.getProject().toUpperCase();
 			return TaskProject1.compareTo(TaskProject2);
@@ -145,7 +145,6 @@ public class Task {
 	public static Comparator<Task> TaskDueDateComparator = new Comparator<Task>() {
 		
 		public int compare(Task task1, Task task2) {
-			
 			String TaskDueDate1 = task1.getDueDate().toUpperCase();
 			String TaskDueDate2 = task2.getDueDate().toUpperCase();
 			return TaskDueDate1.compareTo(TaskDueDate2);
