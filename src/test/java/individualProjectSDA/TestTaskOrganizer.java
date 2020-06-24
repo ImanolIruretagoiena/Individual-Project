@@ -137,10 +137,10 @@ public class TestTaskOrganizer {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		System.setOut(new PrintStream(output));
 		testTaskOrganizer.printList();
-		String expectedOutput = "Task title: Cleaning; Due Date: 02/12; Project: B; Completed: false" + "\n"
-								+ "Task title: Cooking; Due Date: 04/15; Project: D; Completed: false" + "\n"
-								+ "Task title: Eating; Due Date: 07/13; Project: A; Completed: false" + "\n"
-								+ "Task title: Studying; Due Date: 03/18; Project: A; Completed: false" + "\n" + "\n";
+		String expectedOutput = "Task title: Cleaning; Due Date: 02/12; Project: B; Completed: false" + "\r\n"
+								+ "Task title: Cooking; Due Date: 04/15; Project: D; Completed: false" + "\r\n"
+								+ "Task title: Eating; Due Date: 07/13; Project: A; Completed: false" + "\r\n"
+								+ "Task title: Studying; Due Date: 03/18; Project: A; Completed: false" + "\r\n\r\n";
 		assertEquals(expectedOutput, output.toString());
 		System.setIn(standardInput);
 		System.setOut(standardOutput);
